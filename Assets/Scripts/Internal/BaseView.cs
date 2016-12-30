@@ -66,14 +66,14 @@ namespace vFramework.Internal
                 viewObject.SetActive(IsActive);
             }
 
-            //OnShow();
+            OnShow();
         }
 
         public void Hide()
         {
             if (null != viewObject && viewObject.activeSelf)
             {
-                //OnHide();
+                OnHide();
                 IsActive = false;
                 viewObject.SetActive(IsActive);
             }
@@ -81,17 +81,17 @@ namespace vFramework.Internal
 
         public void Destroy()
         {
-            //OnDestroy();
+            OnDestroy();
             viewObject = null;
         }
 
         protected abstract void InitView();
 
-        //protected abstract void OnShow();
+        protected virtual void OnShow() { }
 
-        //protected abstract void OnHide();
+        protected virtual void OnHide() { }
 
-        //protected abstract void OnDestroy();
+        protected virtual void OnDestroy() { }
 
         private void CreateUI()
         {
