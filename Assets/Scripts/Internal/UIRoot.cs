@@ -74,21 +74,21 @@ namespace vFramework.Internal
             this.headObj = head;
         }
 
-        public void SetRoot(Transform target, UIType type)
+        public void SetRoot(Transform target, ViewType type)
         {
-            if (UIType.ScreenRoot == type)
+            if (ViewType.ScreenRoot == type)
             {
                 target.SetParentObj(screenRoot.transform);
             }
-            else if (UIType.WorldRoot == type)
+            else if (ViewType.WorldRoot == type)
             {
                 target.SetParentObj(worldRoot.transform);
             }
-            else if (UIType.TraceRoot == type)
+            else if (ViewType.TraceRoot == type)
             {
                 target.SetParentObj(traceRoot.transform);
             }
-            else if (UIType.FollowRoot == type)
+            else if (ViewType.FollowRoot == type)
             {
                 target.SetParentObj(followRoot.transform);
             }
