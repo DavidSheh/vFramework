@@ -84,11 +84,11 @@ namespace vFramework.Internal
             {
                 target.SetParentObj(worldRoot.transform);
             }
-            else if (UIType.Trace3D == type)
+            else if (UIType.TraceRoot == type)
             {
                 target.SetParentObj(traceRoot.transform);
             }
-            else if (UIType.Follow3D == type)
+            else if (UIType.FollowRoot == type)
             {
                 target.SetParentObj(followRoot.transform);
             }
@@ -134,7 +134,6 @@ namespace vFramework.Internal
             worldRoot.transform.localScale = Constant.defaultScale;
             followRoot = CreateRoot("FollowRoot", RenderMode.WorldSpace, 0);
             traceRoot = CreateRoot("TraceRoot", RenderMode.WorldSpace, 500);
-            worldRoot.tag = "Uncircle";
         }
 
         private GameObject CreateRoot(string name, RenderMode mode, int sort)

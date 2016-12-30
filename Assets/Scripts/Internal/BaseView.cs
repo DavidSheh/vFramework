@@ -5,19 +5,25 @@ namespace vFramework.Internal
     public enum UIType
     {
         /// <summary>
-        /// 独立的窗口
+        /// 没有根节点
         /// </summary>
-        None,
+        NoRoot,
+        /// <summary>
+        /// 2D UI根节点
+        /// </summary>
         ScreenRoot,
+        /// <summary>
+        /// 3D UI根节点
+        /// </summary>
         WorldRoot,
         /// <summary>
-        /// 固定在视线正前方
+        /// 跟踪根节点，VR模式下视野的中心点
         /// </summary>
-        Trace3D,
+        TraceRoot,
         /// <summary>
-        /// 跟随头部移动，在竖直方向上不跟随，只在水平方向上跟随
+        /// 跟随根节点，VR模式下，跟随头部移动（在竖直方向上不跟随，只在水平方向上跟随）
         /// </summary>
-        Follow3D,
+        FollowRoot,
     }
 
     public enum UIMode
@@ -104,6 +110,8 @@ namespace vFramework.Internal
             {
                 return;
             }
+
+            UIRoot.Instance.SetRoot(viewObject.transform, ViewType);
         }
     }
 }
