@@ -29,7 +29,7 @@ namespace vFramework.Internal
                 backViewList.Add(name);
             }
 
-            if (view.ViewMode == ViewMode.NeedBack && view.ViewMode != ViewMode.None)
+            if (view.ViewMode == ViewMode.NeedBack)
             {
                 CloseOthers(name);
             }
@@ -110,7 +110,10 @@ namespace vFramework.Internal
         /// </summary>
         public static void HideAll()
         {
-            CloseOthers();
+            foreach (var item in viewDic)
+            {
+                Close(item.Value);
+            }
         }
 
         /// <summary>
@@ -144,7 +147,7 @@ namespace vFramework.Internal
         {
             foreach (var item in viewDic)
             {
-                if(!string.Equals(item.Key, name))
+                if(!string.Equals(item.Key, name) && item.Value.ViewMode != ViewMode.None)
                 {
                     Close(item.Value);
                 }
