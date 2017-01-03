@@ -50,6 +50,7 @@ namespace vFramework.Internal
 
     public abstract class BaseView
     {
+        public string ViewName { get; private set; }
         public ViewType ViewType { get; private set; }
         public ViewMode ViewMode { get; private set; }
         public bool IsActive { get; private set; }
@@ -60,6 +61,7 @@ namespace vFramework.Internal
         public BaseView() { }
         public BaseView(string uiPath, ViewType type, ViewMode mode)
         {
+            ViewName = this.GetType().ToString();
             ViewPath = uiPath;
             ViewType = type;
             ViewMode = mode;
@@ -75,7 +77,7 @@ namespace vFramework.Internal
             if (null == viewObject)
             {
                 CreateUI();
-
+                IsActive = true;
                 InitView();
             }
 
@@ -100,6 +102,7 @@ namespace vFramework.Internal
 
         public void Destroy()
         {
+            IsActive = false;
             OnDestroy();
             Object.Destroy(viewObject);
             viewObject = null;
@@ -131,7 +134,37 @@ namespace vFramework.Internal
                 return;
             }
 
+            Vector3 anchorPos = Vector3.zero;
+            Vector2 sizeDel = Vector2.zero;
+            Vector3 scale = Vector3.one;
+
+            RectTransform rt = viewObject.GetComponent<RectTransform>();
+            if (null != rt)
+            {
+                anchorPos = rt.anchoredPosition;
+                sizeDel = rt.sizeDelta;
+                scale = rt.localScale;
+            }
+            else
+            {
+                anchorPos = viewObject.transform.localPosition;
+                scale = viewObject.transform.localScale;
+            }
+
             UIRoot.Instance.SetRoot(viewObject.transform, ViewType);
+
+            if (null != rt)
+            {
+                viewObject.transform.localPosition = anchorPos;
+                rt.anchoredPosition = anchorPos;
+                rt.sizeDelta = sizeDel;
+                rt.localScale = scale;
+            }
+            else
+            {
+                viewObject.transform.localPosition = anchorPos;
+                viewObject.transform.localScale = scale;
+            }
         }
     }
 }
